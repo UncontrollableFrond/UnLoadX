@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
           socket.emit('woop woop')
 
         } else {
-          nodeController.startSiege(dataFromLB))
+          nodeController.startSiege(dataFromLB)
           .then(requestBody => requestController.createRequest(requestBody))
           .then(statsData => {
             console.log('[STEP 9]: Received statsData back from requestController - sending back up to client - statsData is: ', statsData);
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
           })
           .catch(err => console.log(`Error in socket chain ${err.message}`));
         }
-      }
+      })
 
 
   });
