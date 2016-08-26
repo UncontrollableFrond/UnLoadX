@@ -22,7 +22,7 @@ var SocketService = (function () {
         this.setRequestData();
         setTimeout(function () {
             _this.requestDataSource.next(true);
-        }, 15000);
+        }, 30000);
     }
     // service command that emits that requestData is available
     SocketService.prototype.setRequestDataAvailable = function () {
