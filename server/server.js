@@ -21,25 +21,19 @@ io.on('connection', (socket) => {
     console.log('Received POST from client socket!', requests);
     nodeController.createServerNodeSocket(requests)
       .then(dataFromLB => {
-        if (dataFromLB.Servers) {
-          // skip
-          console.log('Not triggering siege, servers unavailable')
-          socket.emit('woop woop')
-
-        } else {
+        if (dataFromLB.hasOwnProperty('Volume')) {
           nodeController.startSiege(dataFromLB)
           .then(requestBody => requestController.createRequest(requestBody))
           .then(statsData => {
             console.log('[STEP 9]: Received statsData back from requestController - sending back up to client - statsData is: ', statsData);
             socket.emit('receive-requests', statsData);
-          })
-          .catch(err => console.log(`Error in socket chain ${err.message}`));
+          });
+        } else {
+          socket.emit('receive-requests', dataFromLB);
         }
       })
-
-
+      .catch(err => console.log(`Error in socket chain ${err.message}`));
   });
-
 });
 
 db.sync()
