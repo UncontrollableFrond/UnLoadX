@@ -19,7 +19,7 @@ export default class SocketService {
     this.setRequestData();
     setTimeout(() => {
       this.requestDataSource.next(true);
-    }, 15000);
+    }, 30000);
   }
 
   // service command that emits that requestData is available
