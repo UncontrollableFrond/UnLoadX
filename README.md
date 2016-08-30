@@ -1,6 +1,6 @@
 # UnLoadX - Load balancing and testing as a service
 ### Static file and API server
-#### [Load Balancer Repo](https://github.com/Unload-Labs/UnLoadX-LB)
+This repo contains the code for the server portion of UnLoadX; for the load balancer code go to [this repo](https://github.com/Unload-Labs/UnLoadX-LB)
 
 ![alt text](./img/thesis.gif "UnLoadX")  <br/>
 ## Table of Contents
