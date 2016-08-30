@@ -46,9 +46,11 @@ UnLoadX offers a load testing service that can be used to simulate high traffic 
 - Node 6.3.0+
 - NPM 3.10.3+
 - PostgreSQL
+- Docker
+- Docker-compose
+- Go
 
 ### Installing Dependencies
-1. `git clone https://github.com/Unload-Labs/UnLoadX.git && cd UnLoadX-LB`
-2. `npm install`
-3. `npm start`
-4. This repo contains code for the static file server, API server, and siege service. The load balancer code is in a [separate repo](https://github.com/Unload-Labs/UnLoadX-LB)
+1. `git clone https://github.com/Unload-Labs/UnLoadX.git && cd UnLoadX`
+2. `docker-compose up -d`
+3. This repo contains code for the static file server, API server, and siege service. The load balancer code is in a [separate repo](https://github.com/Unload-Labs/UnLoadX-LB)
