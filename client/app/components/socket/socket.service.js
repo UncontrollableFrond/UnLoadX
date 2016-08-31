@@ -15,8 +15,7 @@ var requestData;
 var SocketService = (function () {
     function SocketService() {
         var _this = this;
-        this._url = 'http://52.9.136.53:3000';
-        // private _url = 'http://localhost:3000';
+        this._url = 'http://52.9.136.53:80';
         this._socket = io.connect(this._url);
         this.requestDataSource = new ReplaySubject_1.ReplaySubject();
         this.setRequestData();
@@ -26,19 +25,16 @@ var SocketService = (function () {
     }
     // service command that emits that requestData is available
     SocketService.prototype.setRequestDataAvailable = function () {
-        console.log('From SocketService.setRequestDataAvailable - Setting requestDataAvailable to true');
         this.requestDataSource.next(true);
     };
     SocketService.prototype.setRequestData = function () {
         this._socket.on('receive-requests', function (requests) {
             requestData = requests;
-            console.log('Received requests data from server', requestData);
             this.setRequestDataAvailable();
         }.bind(this));
     };
     SocketService.prototype.sendServers = function (serverPost) {
         this._socket.emit('receive-post', serverPost);
-        console.log("Emitted " + JSON.stringify(serverPost) + " to server socket");
     };
     SocketService.prototype.getData = function () {
         return requestData;

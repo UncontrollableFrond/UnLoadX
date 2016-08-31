@@ -28,7 +28,6 @@ var FormComponent = (function () {
         this.lb = Auth.lbStatus;
         this._subscription = Auth.lbUp.subscribe(function (val) {
             _this.lb = val;
-            console.log('event detected from form component');
         });
     }
     FormComponent.prototype.onSubmit = function () {

@@ -35,7 +35,6 @@ export class Graphs implements OnInit {
       this.displayError = true;
       this.isDataAvailable = true;
     }
-    console.log('Set requestData from SocketService to ', this.requestData);
   }
 
   ngOnInit() {
@@ -47,13 +46,12 @@ export class Graphs implements OnInit {
 
         if (this.requestData && !this.requestData.hasOwnProperty('Servers')) {
           this.isDataAvailable = Boolean(requestDataAvailable);
-          console.log(`GraphComponent - Changed isDataAvailable to ${this.isDataAvailable}`);
         } else {
           this.displayError = true;
         }
       },
       error: err => console.log(`Error subscribing to subject ${err.message}`),
-      complete: () => console.log('Done subscribing')
+      complete: () => {}
     });
   }
 
