@@ -105,7 +105,6 @@ export class Auth {
         .map(response => response.json())
         .subscribe(
           response => {
-            console.log("accounts linked");
             this.fetchProfile(localStorage.getItem('id_token'));
             this.router.navigate(['/profile']);
           },
@@ -124,7 +123,6 @@ export class Auth {
       .map(response => response.json())
       .subscribe(
         response => {
-          console.log("unlinked account");
           this.fetchProfile(localStorage.getItem('id_token'));
           this.router.navigate(['Profile']);
         },
@@ -167,7 +165,6 @@ export class Auth {
      return this.http.post('/api/user', JSON.stringify(body), options)
       .toPromise()
       .then(res => {
-        console.log('response from post')
 
         // change the button to enabled
         // emit an event, or whatever

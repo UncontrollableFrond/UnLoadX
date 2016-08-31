@@ -34,7 +34,6 @@ var Graphs = (function () {
             this.displayError = true;
             this.isDataAvailable = true;
         }
-        console.log('Set requestData from SocketService to ', this.requestData);
     };
     Graphs.prototype.ngOnInit = function () {
         // subscribes to replaySubject from SocketService listening to when requestData is available from the server
@@ -44,14 +43,13 @@ var Graphs = (function () {
                 _this.requestData = _this._SocketService.getData();
                 if (_this.requestData && !_this.requestData.hasOwnProperty('Servers')) {
                     _this.isDataAvailable = Boolean(requestDataAvailable);
-                    console.log("GraphComponent - Changed isDataAvailable to " + _this.isDataAvailable);
                 }
                 else {
                     _this.displayError = true;
                 }
             },
             error: function (err) { return console.log("Error subscribing to subject " + err.message); },
-            complete: function () { return console.log('Done subscribing'); }
+            complete: function () { }
         });
     };
     Graphs.prototype.ngOnDestroy = function () {

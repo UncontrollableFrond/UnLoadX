@@ -95,7 +95,6 @@ var Auth = (function () {
             .post('https://' + 'jamesramadan.auth0.com' + '/api/v2/users/' + this.userProfile.user_id + '/identities', data, { headers: headers })
             .map(function (response) { return response.json(); })
             .subscribe(function (response) {
-            console.log("accounts linked");
             _this.fetchProfile(localStorage.getItem('id_token'));
             _this.router.navigate(['/profile']);
         }, function (error) { return alert(error.json().message); });
@@ -110,7 +109,6 @@ var Auth = (function () {
             .delete('https://' + 'jamesramadan.auth0.com' + '/api/v2/users/' + this.userProfile.user_id + '/identities/' + identity.provider + "/" + identity.user_id, { headers: headers })
             .map(function (response) { return response.json(); })
             .subscribe(function (response) {
-            console.log("unlinked account");
             _this.fetchProfile(localStorage.getItem('id_token'));
             _this.router.navigate(['Profile']);
         }, function (error) { return alert(error.json().message); });
@@ -151,7 +149,6 @@ var Auth = (function () {
         return this.http.post('/api/user', JSON.stringify(body), options)
             .toPromise()
             .then(function (res) {
-            console.log('response from post');
             // change the button to enabled
             // emit an event, or whatever
             _this.lbStatus = true;

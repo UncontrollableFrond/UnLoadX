@@ -38,7 +38,6 @@ export class FormComponent {
     this.lb = Auth.lbStatus;
     this._subscription = Auth.lbUp.subscribe((val) => {
       this.lb = val;
-      console.log('event detected from form component')
     });
   }
 

@@ -34,7 +34,6 @@ io.on('connection', (socket) => {
       })
       .catch(err => console.log(`Error in socket chain ${err.message}`));
   });
-
 });
 
 db.sync()

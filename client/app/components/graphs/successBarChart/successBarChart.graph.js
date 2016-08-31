@@ -74,48 +74,4 @@ var successBarChart = (function () {
     return successBarChart;
 }());
 exports.successBarChart = successBarChart;
-//   ngOnInit(){
-//     this.options = {
-//       multiBarChart: {
-//     chart: {
-//       type: 'multiBarChart',
-//       height: 450,
-//       margin : {
-//         top: 20,
-//         right: 20,
-//         bottom: 45,
-//         left: 45
-//       },
-//       clipEdge: true,
-//       //staggerLabels: true,
-//       duration: 500,
-//       stacked: true,
-//       xAxis: {
-//         axisLabel: 'Time (ms)',
-//         showMaxMin: false,
-//         tickFormat: function(d){
-//           return d3.format(',f')(d);
-//         }
-//       },
-//       yAxis: {
-//         axisLabel: 'Y Axis',
-//         axisLabelDistance: -20,
-//         tickFormat: function(d){
-//           return d3.format(',.1f')(d);
-//         }
-//       }
-//       }
-//       }
-//     }
-//     this.data = [
-//       {
-//       key: 'Stream',
-//       values: {x:10,y:10}
-//       }
-//     ];
-//   }
-//   ngAfterViewInit() {
-//       this.nvD3.chart.update()
-//   }
-// }
 //# sourceMappingURL=successBarChart.graph.js.map

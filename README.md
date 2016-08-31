@@ -1,26 +1,31 @@
-### UnLoadX - Load balancing and testing tool with a performance measuring UI
+# UnLoadX - Load balancing and testing as a service
+### Static file and API server
+This repo contains the code for the server portion of UnLoadX; for the load balancer code go to [this repo](https://github.com/Unload-Labs/UnLoadX-LB)
 
+
+![alt text](./img/thesis.gif "UnLoadX")  <br/>
 ## Table of Contents
-1. Description
+1. Summary
 2. Instructions
 3. Team
 4. Tech Stack
-5. Requirements
-6. Installing Dependencies
+5. Contributing
 
-## Description
-UnLoadX is a load balancer that manages (balances) user-generated network traffic. The load balancer functions by receiving user-generated (GET) requests and sending the requests to their appropriate endpoint within a group of servers. The load balancer decides which server is best fit to process the request by using an algorithm that reads each server's "health" (CPU and memory). After the servers process the requests, performance metrics, including latency and request processing success rate, are displayed back to the user.
+## Summary
+UnLoadX is a platform that provides users with the ability to deploy servers behind a dedicated load balancer within seconds. The application's health-based monitoring uses server CPU and memory to route traffic and is a more effective approach to load balancing than DNS round robin or connection-based strategies. <br/>
 
-Users can use UnLoadX to test whether a group of their servers are able to handle a specified amount of network traffic. Users must provide both the number of requests (per concurrent user)to be processed by the load balancer and a list of IP address-port combinations that the load balancer can choose to send the incoming requests to. The system always assumes 15 concurrent users, so the total number of requests for the load balancer to process will be 15 X [number of entered requests]. Users also can specify (optional) path information and application type, as needed.
+UnLoadX offers a load testing service that can be used to simulate high traffic conditions. Users can enter a duration for the test and will receive request-level data back including latency, status code information, and CPU and health of each server in the test.  <br/>
+![alt text](./img/architecture.png "Architecture")  <br/>
 
 ## Instructions
-1. Navigate to http://52.9.136.53:3000.
-2. If you don't already have a profile, click "LOG IN" and create a profile. Switch to the "Sign Up" tab and create a profile through either Google or Facebook or by using your email address. You will have to confirm your email address if you use your email.
-3. Once you are logged in, enter in the IP/Port combination(s) you would like to test. A new IP/Port line will appear once you begin entering information into the current one. You can enter additional endpoint path information, if you wish, though this is optional. The Application Type field is used in the load balancer algorithm and is also optional.
-4. After entering in all of the IP/ports you would like to test, enter in the traffic volume per concurrent user. Recall that there are 15 concurrent users so the total volume will be 15 X your entered number.
-5. At the bottom of the form, you will see "Waiting for Load Balancer" until you login. If you are a first time user, you will continue to see this message until the load balancer is ready to receive your submission (may take a few minutes). Once the load balancer is ready (and you have entered in the test information above), hit the "Run Test" button.
-6. After clicking the button, you will be taken to the Results page, however the results will not be ready immediately (the load balancer will still be processing the requests). Wait for the button to appear that reads "Click to See Test Results" and click it. In the meantime, you can play around with the network architecture diagram by dragging and dropping the icons.
-7. View the test metrics to analyze test performance. High latency numbers indicate that the server group is likely taking a while to process the requests and additional servers may need to be added to the group to process the network traffic. Examine the server health data to determine which servers are working harder (relatively) within the group. A higher CPU level indicates that a server is doing proportionally more of the processing. A higher memory level indicates that a server has less capability to store additional incoming information. In summary, use the metrics to determine whether additional servers should be added to the group and/or specific servers within the group should be removed in order to balance the desired level of network traffic.
+### Running load tests
+1. Navigate to www.unloadx.com.
+2. Sign up or login with an existing account. When you create an account the system will assign a new load balancer instance to it.  During the time it takes to spin up a load balancer instance (typically no more than a minute or two) the button to run a load test will be disabled.
+3. Enter IP and port combinations for your servers. You may optionally specify REST endpoints and descriptions for the application running on each IP and port.
+4. On each of the servers you entered, install Docker and run `docker pull aeb0/healthservice && docker run -p 5000:5000 -d healthservice aeb0/healthservice npm start` This will run a Dockerized microservice on each machine that responds to GET requests to port 5000 with the server's memory and CPU.  UnLoadX will not initiate a load test to servers that do not have the service installed.
+5. Enter the number of requests to be triggered per user during the test. By default the system uses 15 concurrent users in the test.
+6. Click Run Test to start the test. You must be logged in to run a test, and new users will need to wait one to two minutes for their load balancer instance to become available.
+7. On the results page, the Display Results button will become active once the test is over; click it to view results.<br/>
 
 ## Team
 
@@ -29,16 +34,22 @@ Users can use UnLoadX to test whether a group of their servers are able to handl
   - __Development Team Members__: [James Ramadan](https://github.com/jamesramadan)
 
 ## Tech Stack
-Angular 2
-NVD3
-Node.js & Express.js
-Go
+* Angular 2
+* NVD3
+* Node.js & Express.js
+* Go
+* PostgreSQL
+* Docker
 
-## Requirements
-- Node 6.3.0
-- NPM 3.10.3
+## Contributing
+
+### Requirements
+- Node 6.3.0+
+- NPM 3.10.3+
+- PostgreSQL
 
 ### Installing Dependencies
-1. Run npm install from the command line.
-2. Run npm start from the command line to start up the application.
-
+1. `git clone https://github.com/Unload-Labs/UnLoadX.git && cd UnLoadX-LB`
+2. `npm install`
+3. `npm start`
+4. This repo contains code for the static file server, API server, and siege service. The load balancer code is in a [separate repo](https://github.com/Unload-Labs/UnLoadX-LB)

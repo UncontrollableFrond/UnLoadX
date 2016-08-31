@@ -10,8 +10,7 @@ let requestData;
 
 
 export default class SocketService {
-  private _url = 'http://52.9.136.53:3000';
-  // private _url = 'http://localhost:3000';
+  private _url = 'http://52.9.136.53:80';
   private _socket = io.connect(this._url);
   requestDataSource = new ReplaySubject();
 
@@ -19,26 +18,23 @@ export default class SocketService {
     this.setRequestData();
     setTimeout(() => {
       this.requestDataSource.next(true);
-    }, 15000);
+    }, 30000);
   }
 
   // service command that emits that requestData is available
   setRequestDataAvailable() {
-    console.log('From SocketService.setRequestDataAvailable - Setting requestDataAvailable to true');
     this.requestDataSource.next(true);
   }
 
   setRequestData() {
     this._socket.on('receive-requests', function(requests) {
       requestData = requests;
-      console.log('Received requests data from server', requestData);
       this.setRequestDataAvailable();
     }.bind(this));
   }
 
   sendServers(serverPost) {
     this._socket.emit('receive-post', serverPost);
-    console.log(`Emitted ${JSON.stringify(serverPost)} to server socket`);
   }
 
   getData() {
